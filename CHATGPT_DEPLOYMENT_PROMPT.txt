@@ -1,0 +1,50 @@
+CHATGPT DEPLOYMENT PROMPT — URBAN THREADZ
+
+You are helping me deploy my existing URBAN THREADZ e-commerce project. I am attaching URBAN_THREADZ_Deploy_Ready_Private_Package.zip. Do not start from scratch and do not redesign or replace the project.
+
+YOUR TASK
+Deploy this exact project to free-tier services, then give me the live storefront URL and a working Django Admin URL, and help me create my own admin login.
+
+PREFERRED FREE-TIER ARCHITECTURE
+- Frontend: Cloudflare Pages
+- Django backend: Render Free Web Service
+- PostgreSQL: Neon Free
+- Product media: Cloudflare R2 (free quota)
+Do not purchase any paid plan or add a paid payment gateway. Explain any free-tier limitation that affects the result.
+
+IMPORTANT PROJECT RULES
+1. Inspect the entire ZIP before taking action. Read DEPLOYMENT_GUIDE.md, ENVIRONMENT_VARIABLES.md, SECURITY_CHECKLIST.md, FREE_HOSTING_LIMITATIONS.md, PRODUCTION_TODO.md, PROJECT_AUDIT.md, README.md and TEST_REPORT.md.
+2. Keep the GitHub repository PRIVATE. Never publish .env, passwords, secret keys, database URLs, API tokens, R2 credentials, private supplier source photos, or other secrets.
+3. The ZIP intentionally excludes .env and private_media_import. Do not invent or fabricate those assets. Supplier-watermarked photos must never be exposed publicly.
+4. Never display Meesho or supplier details on the storefront or public API. Supplier cost/profit details are admin-only.
+5. Do not invent product prices, stock, sizes, descriptions or images. Products missing required information must remain unpublished/unpurchasable until I fill them through admin.
+6. Customer payment must remain PhonePe UPI/manual UTR submission using the project's configured UPI ID. Never auto-mark an order paid based on a screenshot or UTR; payment must be manually verified by an admin. Do not add Razorpay or another paid gateway.
+7. Preserve existing business logic and database migrations. Do not delete production data or reset a database to fix deployment.
+8. Do not ask me to paste passwords, API keys, tokens, or database credentials into chat. Use secure provider login flows / secret-entry interfaces. If a secure flow is unavailable, tell me exactly which provider dashboard field I must fill myself.
+9. Do not claim anything is live, deployed, tested, or admin-ready until you have actually verified it.
+
+WORK PLAN
+A. Audit the ZIP, determine the correct frontend root, backend root, build/start commands, health endpoint, required environment variables, and any production blockers. Verify the ZIP contains the complete codebase.
+B. Create a NEW PRIVATE GitHub repository named urban-threadz-store (or similarly clear name) in my connected GitHub account. Upload the project files from this ZIP, preserving directory structure. Exclude .env, private supplier photos, caches, local databases, and secrets. If you cannot create a repository with your available tools, tell me the exact single manual step required; do not pretend it was created.
+C. Connect the private repository to Render and deploy the Django backend. Create a Neon PostgreSQL database. Configure all environment variables from ENVIRONMENT_VARIABLES.md using secure secret fields. Use HTTPS, correct ALLOWED_HOSTS, CSRF_TRUSTED_ORIGINS and CORS origins. Do not disable security checks just to make deployment pass.
+D. Create Cloudflare R2 bucket and scoped credentials for product media. Configure the backend's R2 settings. Verify an uploaded test image can be stored and fetched. Do not expose R2 secret keys.
+E. Deploy frontend/ to Cloudflare Pages. Update the frontend API base URL to the actual deployed Render HTTPS origin, using a safe project change and commit. Confirm CORS works.
+F. Run migrations safely and verify the database. Use the project's one-time initial-admin bootstrap mechanism only as documented. Create an admin login for me without revealing its password in chat; use a secure password setup flow if available. Do not hardcode a password into source code or Git.
+G. Verify:
+   - frontend loads over HTTPS
+   - backend health endpoint responds
+   - Django /admin/ login page loads
+   - admin can log in
+   - product list and image upload work
+   - customer registration/login and profile/address APIs work
+   - cart and checkout calculate server-side prices and check stock
+   - UPI UTR submission remains pending until manual admin verification
+   - admin payment review and order status actions work
+   - no supplier names/costs/watermarked photos are public
+H. If any test cannot be run, state it clearly. Provide the exact live URLs, deployment provider dashboard URLs, admin URL, and a short list of remaining blockers.
+
+IMPORTANT
+- Free Render may sleep when idle and cold-start slowly; do not describe it as always-on.
+- Do not enable real customer orders until payment, stock, image storage and security checks are verified.
+- Do not ask me to buy TinyFish credits or another paid automation service. Use available native integrations or give me a short manual fallback if a tool is blocked.
+- Work through the task step by step. Do not stop after merely producing deployment instructions. Do not say "Done" until the live site and admin login are verified.

@@ -1,0 +1,8 @@
+URBAN THREADZ UPI preview
+
+Payment method: Direct UPI intent/QR
+UPI ID: Q06781216@ybl
+Merchant display name parameter: URBAN THREADZ
+Payment verification: Manual only. Never mark paid based only on a screenshot or customer-entered UTR. Check PhonePe Business/bank statement.
+
+Browser preview stores products' retail prices, cart and test orders in localStorage. This is not a secure production admin. The backend payment API/webhook and server-side payment verification are not production implemented.

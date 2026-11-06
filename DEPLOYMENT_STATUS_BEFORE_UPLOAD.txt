@@ -1,0 +1,14 @@
+URBAN THREADZ deployment handoff
+
+This package excludes .env and private_media_import (supplier-watermarked source photos).
+Do not publish backend/catalog_seed.json in a public repository; keep the repository private.
+
+Deployment blockers that still require authenticated provider setup:
+- Create a private GitHub repository and push this package.
+- Create Neon PostgreSQL database and configure DATABASE_URL.
+- Create Render web service; configure exact CORS/CSRF origins and one-time initial admin variables.
+- Create Cloudflare Pages project with frontend/ as output; update frontend/index.html api-base to the deployed Render HTTPS origin.
+- Create Cloudflare R2 bucket, bucket-scoped credentials, and public media URL; configure all five R2 variables in Render.
+- Verify health, API, admin, image upload/download, customer checkout and manual UPI verification before enabling live orders.
+
+No live service or admin user is created by packaging these files.

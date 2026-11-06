@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: urban_threadz
+      POSTGRES_USER: urban_threadz
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-urban_threadz_dev}
+    volumes: [urban_threadz_db:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U urban_threadz -d urban_threadz"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  backend:
+    build: ./backend
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      POSTGRES_DB: urban_threadz
+      POSTGRES_USER: urban_threadz
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-urban_threadz_dev}
+      POSTGRES_HOST: db
+      DJANGO_DEBUG: "1"
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-dev-key-change-before-deploy}
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,backend
+      PAYMENT_MODE: ${PAYMENT_MODE:-TEST}
+      PAYMENT_UPI_ID: ${PAYMENT_UPI_ID:-Q06781216@ybl}
+      PAYMENT_MERCHANT_NAME: ${PAYMENT_MERCHANT_NAME:-URBAN THREADZ}
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+  frontend:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports: ["8080:80"]
+    depends_on: [backend]
+volumes:
+  urban_threadz_db:

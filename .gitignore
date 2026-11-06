@@ -1,0 +1,12 @@
+.env
+backend/.env
+.venv/
+.venv-*/
+**/__pycache__/
+**/*.py[cod]
+backend/staticfiles/
+backend/media/
+.pytest_cache/
+.coverage
+backend/private_media_import/
+backend/catalog_seed.json

@@ -1,0 +1,21 @@
+PASS — 37 inventory records imported
+PASS — 37 products rendered in public draft catalogue
+PASS — supplier purchase costs excluded from public frontend
+PASS — supplier purchase costs excluded from public API serializer
+PASS — only two verified supplier costs retained internally
+PASS — no retail prices invented
+PASS — 10 original reference photos bundled
+PASS — initial database migration included
+PASS — SPH-032 unavailable
+PASS — mobile responsive layout present
+2026-11-06 preview update:
+- Embedded 10 locally supplied product photos directly into frontend/index.html so the standalone HTML preview displays them without needing an assets folder.
+- Added product photo thumbnails for SPH-001, SPH-002 and SPH-003.
+- Added browser-preview phone login / account creation flow with an explicitly labelled demo OTP (123456); no SMS is sent.
+- Checkout now requires a signed-in preview account and collects name, mobile, email, full address, PIN code and optional landmark.
+- Saved preview account/address locally and prefilled checkout on later visits.
+- Admin order listing includes delivery address and PIN code.
+- JavaScript syntax check: PASS (node --check).
+- Static feature assertions: 8/8 PASS.
+- This is still a browser-only preview: login, customer records, orders and admin data are stored in that browser's localStorage. Do not use it for real customer data or production orders. Live OTP/authentication and server-side persistence are not implemented.
+- Product photos are available locally for SPH-001 through SPH-003 only (10 images). Other catalogue items still need their original product photos; no synthetic product images were substituted.
